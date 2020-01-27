@@ -8,18 +8,22 @@ use Symfony\Component\Routing\Annotation\Route;
 class WelcomeController extends AbstractController
 {
     /**
-     * @Route("/hello", name="hello")
+     * @Route(
+     *    "/hello/{name}",
+     *    name="hello",
+     *    requirements={"name"="[a-z]{3,8}"}
+     * )
      *
      * Mon commentaire.
      */
-    public function hello()
+    public function hello($name = 'Matthieu')
     {
-        $name = 'Matthieu';
+        // $name = 'Matthieu';
 
         dump($name);
 
         return $this->render('welcome/hello.html.twig', [
-            'name' => $name,
+            'name' => ucfirst($name),
         ]);
     }
 }
