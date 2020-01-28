@@ -78,4 +78,15 @@ class ProductController extends AbstractController
         // Après avoir parcouru le tableau, si aucun produit ne correspond, on affiche une 404
         throw $this->createNotFoundException('Le produit n\'existe pas.');
     }
+
+    /**
+     * @Route("/product/order/{slug}", name="product_order")
+     */
+    public function order($slug)
+    {
+        // Message flash pour la commande du produit
+        $this->addFlash('success', 'Nous avons bien pris en compte votre commande de '.$slug);
+
+        return $this->redirectToRoute('product_list');
+    }
 }
