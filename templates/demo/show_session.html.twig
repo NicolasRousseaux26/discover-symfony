@@ -1,7 +1,13 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-
     <a href="{{ path('put_session', { name: 'matthieu' }) }}">Mettre en session Matthieu</a> <br />
     <a href="{{ path('put_session', { name: 'toto' }) }}">Mettre en session Toto</a>
+
+    <h2>Les messages flashs :</h2>
+    {% for message in app.flashes('success') %}
+        <div>
+            {{ message }}
+        </div>
+    {% endfor %}
 {% endblock %}

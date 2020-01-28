@@ -6,6 +6,7 @@ use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -90,6 +91,26 @@ class DemoController extends AbstractController
         // Je mets $name en session
         $session->set('name', $name); // Equivaut à $_SESSION['name'] = $name;
 
+        // On peut créer un message flash
+        $this->addFlash('success', 'Message de succès');
+
         return $this->redirectToRoute('show_session');
+    }
+
+    /**
+     * @Route("/protected.pdf", name="cv")
+     */
+    public function downloadCV()
+    {
+        $authorized = (bool) rand(0, 1);
+        if ($authorized) {
+            throw $this->createNotFoundException('Vous ne pouvez pas récupérer ce CV.');
+        }
+
+        return $this->file(
+            '../cv.pdf',
+            'new_file.pdf',
+            ResponseHeaderBag::DISPOSITION_INLINE
+        );
     }
 }
