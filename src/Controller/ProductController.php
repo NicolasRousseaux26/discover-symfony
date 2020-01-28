@@ -47,6 +47,14 @@ class ProductController extends AbstractController
     }
 
     /**
+     * @Route("/product/create", name="product_create")
+     */
+    public function create()
+    {
+        return $this->render('product/create.html.twig');
+    }
+
+    /**
      * @Route("/product/{slug}", name="product_show")
      */
     public function show($slug)
