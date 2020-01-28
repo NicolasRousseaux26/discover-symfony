@@ -1,5 +1,9 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}
+    Liste des produits - {{ parent() }}
+{% endblock %}
+
 {% block body %}
     <table>
         {% for product in products %}
@@ -9,4 +13,10 @@
             </tr>
         {% endfor %}
     </table>
+
+    {{ dump() }}
+
+    Méthode HTTP : {{ app.request.method }}
 {% endblock %}
+
+{% block sidebar %}{% endblock %}
