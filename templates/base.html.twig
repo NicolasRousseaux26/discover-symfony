@@ -21,12 +21,16 @@
                 </button>
 
                 <div class="collapse navbar-collapse" id="menu">
+                    {% set current_route = app.request.get('_route') %}
                     <ul class="navbar-nav mr-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Accueil</a>
-                        </li>
-                        <li class="nav-item active">
+                        <li class="nav-item {{ current_route == 'product_list' ? 'active' }}">
                             <a class="nav-link" href="{{ path('product_list') }}">Produits</a>
+                        </li>
+                        <li class="nav-item {{ current_route == 'product_random' ? 'active' }}">
+                            <a class="nav-link" href="{{ path('product_random') }}">Produit aléatoire</a>
+                        </li>
+                        <li class="nav-item {{ current_route == 'product_create' ? 'active' }}">
+                            <a class="nav-link" href="{{ path('product_create') }}">Créer un produit</a>
                         </li>
                     </ul>
                 </div>

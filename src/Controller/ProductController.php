@@ -33,7 +33,10 @@ class ProductController extends AbstractController
         $product = $this->products[$index];
         dump($product);
 
-        return new Response('<body>'.$product['name'].'</body>');
+        // return new Response('<body>'.$product['name'].'</body>');
+        return $this->render('product/show.html.twig', [
+            'product' => $product,
+        ]);
     }
 
     /**
