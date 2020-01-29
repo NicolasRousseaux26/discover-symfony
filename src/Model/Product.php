@@ -10,7 +10,7 @@ class Product
      * @Assert\NotBlank
      */
     protected $name;
-    
+
     /**
      * @Assert\NotBlank
      * @Assert\Length(min=10)
