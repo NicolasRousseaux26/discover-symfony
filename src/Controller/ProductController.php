@@ -2,11 +2,9 @@
 
 namespace App\Controller;
 
+use App\Form\ProductType;
 use App\Model\Product;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -61,13 +59,7 @@ class ProductController extends AbstractController
         $product = new Product();
         dump($product);
 
-        $form = $this->createFormBuilder($product)
-            ->add('name', TextType::class)
-            //->add('phone', TextType::class)
-            //->add('birthday', BirthdayType::class)
-            ->add('description', TextareaType::class)
-            ->getForm();
-
+        $form = $this->createForm(ProductType::class, $product);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
