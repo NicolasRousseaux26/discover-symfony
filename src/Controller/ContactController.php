@@ -15,6 +15,8 @@ use App\Form\ContactType;
 use App\Model\Contact;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Annotation\Route;
 
 class ContactController extends AbstractController
@@ -22,7 +24,7 @@ class ContactController extends AbstractController
     /**
      * @Route("/contact", name="contact_index")
      */
-    public function index(Request $request)
+    public function index(Request $request, MailerInterface $mailer)
     {
         $contact = new Contact();
         $form = $this->createForm(ContactType::class, $contact);
@@ -31,6 +33,15 @@ class ContactController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             dump($contact);
             $this->addFlash('success', 'Votre message a bien été envoyé.');
+
+            // Envoi du mail
+            $email = (new Email())
+                ->from('contact@monsite.com')
+                ->to('admin@monsite.com')
+                ->subject($contact->getName().' a fait une demande')
+                ->html('<h1>Email: '.$contact->getEmail().'</h1>');
+
+            $mailer->send($email);
 
             // return $this->redirectToRoute('contact_index');
         }
